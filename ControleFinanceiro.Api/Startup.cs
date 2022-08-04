@@ -32,6 +32,11 @@ namespace ControleFinanceiro.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ControleFinanceiro.Api", Version = "v1" });
             });
+
+            var server = Environment.GetEnvironmentVariable("ALURA_SQL_SERVER");
+            var user = Environment.GetEnvironmentVariable("ALURA_SQL_USER");
+            var pass = Environment.GetEnvironmentVariable("ALURA_SQL_PASSWORD");
+            var dbname = "ControleFinanceiro";
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
