@@ -1,6 +1,7 @@
 ## Controle Financeiro API
 
-Com a api do controle Financeiro é possível:
+Sistema de controle fianceiro (Back End)
+As implementações já disponíveis no sistema são:
 # Receitas
 - Enviar receitas
 - Atualilzar receitas ( não é possível renovar a descrição para uma já existente)
