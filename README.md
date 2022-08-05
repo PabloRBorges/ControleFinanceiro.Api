@@ -13,3 +13,5 @@ Temos um período de tempo de 4 semanas para desenvolver o projeto. Nas 3 primei
 2. Já na coluna **Desenvolvendo** ficarão os elementos que você estiver desenvolvendo no momento. Ao iniciar uma tarefa, você poderá mover o cartão que contém a tarefa para esta coluna.
 3. No **Pausado** estarão os elementos que você começou a desenvolver, mas precisou parar por algum motivo.
 4. Por fim, a coluna **Concluído** terá os elementos já concluídos.
+
+#alurachallengeback
