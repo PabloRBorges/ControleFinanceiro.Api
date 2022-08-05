@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Core.Models
+namespace ControleFinanceiro.Api.Models.Request
 {
-    public class Income : Entity
+    public class IncomeRequest
     {
         public string Descricao { get; set; }
         public decimal Valor { get; set; }

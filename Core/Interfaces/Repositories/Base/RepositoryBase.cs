@@ -14,7 +14,6 @@ namespace Core.Interfaces.Repositories.Base
         public RepositoryBase(ApplicationDbContext dataContext)
         {
             _dataContext = dataContext;
-
         }
 
         public void Delete(T entity)
@@ -34,12 +33,12 @@ namespace Core.Interfaces.Repositories.Base
             _dataContext.SaveChanges();
         }
 
-        public IList<T> List()
+        public IEnumerable<T> List()
         {
             return _dataContext.Set<T>().ToList();
         }
 
-        public IList<T> List(Expression<Func<T, bool>> expression)
+        public IEnumerable<T> List(Expression<Func<T, bool>> expression)
         {
             return _dataContext.Set<T>().Where(expression).ToList();
         }

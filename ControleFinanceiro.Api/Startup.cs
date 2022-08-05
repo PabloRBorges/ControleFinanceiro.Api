@@ -1,6 +1,7 @@
+using AutoMapper;
+using ControleFinanceiro.Api.AutoMapper;
 using Core.Interfaces.DataContext;
 using Core.Interfaces.Repositories;
-using Core.Interfaces.Repositories.Base;
 using Core.Interfaces.Services;
 using Core.Services;
 using Infrastructure.Repositories;
@@ -24,9 +25,9 @@ namespace ControleFinanceiro.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var config = AutoMapperConfig.RegisterMappings();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -35,14 +36,12 @@ namespace ControleFinanceiro.Api
             });
 
             var connectionString = Environment.GetEnvironmentVariable("ALURA_CONNECTIONSTRING");
-            //var connectionString = $"Server=localhost;Database=ControleFinanceiro;User Id=sa;Password=Q1w2e3r4@";
 
             services
+                .AddSingleton<IMapper>(new Mapper(config))
                 .AddScoped<IIncomeRepository, IncomeRepository>()
                 .AddScoped<IIncomeServices, IncomeServices>()
-                //.AddSingleton<ApplicationDbContext>( new ApplicationDbContext(connectionString));
                 .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
