@@ -10,7 +10,7 @@ namespace ControleFinanceiro.Api.AutoMapper
         public RequestToModelMappingProfile()
         {
             CreateMap<IncomeRequest, Income>();
-            //CreateMap<ExpenseRequest, Expense>();
+            CreateMap<ExpenseRequest, Expense>();
         }
     }
 }

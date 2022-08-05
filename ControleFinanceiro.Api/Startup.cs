@@ -40,7 +40,9 @@ namespace ControleFinanceiro.Api
             services
                 .AddSingleton<IMapper>(new Mapper(config))
                 .AddScoped<IIncomeRepository, IncomeRepository>()
+                .AddScoped<IExpenseRepository, ExpenseRepository>()
                 .AddScoped<IIncomeServices, IncomeServices>()
+                .AddScoped<IExpenseServices, ExpenseServices>()
                 .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
         }
 
