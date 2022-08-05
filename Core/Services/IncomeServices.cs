@@ -15,16 +15,18 @@ namespace Core.Services
             _incomeRepository = incomeRepository;
         }
 
-        public async Task CreateIncome(string description, DateTime dateTime, double valor)
+        public async Task<string> CreateIncome(string description, DateTime dateTime, decimal valor)
         {
             var income = new Income()
             {
+                Id = Guid.NewGuid(),
                 Data = dateTime,
                 Descricao = description,
                 Valor = valor
             };
 
-            await _incomeRepository.Save(income);
+            _incomeRepository.Insert(income);
+            return "ok";
         }
     }
 }

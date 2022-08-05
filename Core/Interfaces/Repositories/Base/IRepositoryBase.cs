@@ -1,17 +1,19 @@
 ﻿using Core.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Core.Interfaces.Repositories.Base
 {
-    public interface IRepositoryBase<TEntity> where TEntity : Entity
+    public interface IRepositoryBase<T> where T: Entity
     {
-        Task<IQueryable<TEntity>> Query(Expression<Func<TEntity, bool>> predicate);
-
-        Task Save(TEntity entity);
-
-        Task Delete(TEntity entity);
+        T Get(Guid id);
+        IList<T> List();
+        IList<T> List(Expression<Func<T, bool>> expression);
+        void Insert(T entity);
+        void Update(T entity);
+        void Delete(T entity);
     }
 }
