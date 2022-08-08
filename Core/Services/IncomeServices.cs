@@ -22,7 +22,7 @@ namespace Core.Services
         {
             try
             {
-                if (VerifyIncomeDescription(income.Descricao))
+                if (VerifyIncomeDescription(income.Descricao, income.Data))
                     return Task.FromResult("Receita já cadastrada");
 
                 _incomeRepository.Insert(income);
@@ -62,12 +62,12 @@ namespace Core.Services
                 return null;
             }
         }
-               
+
         public Task<string> Update(Income income)
         {
             try
             {
-                if (VerifyIncomeDescription(income.Descricao))
+                if (VerifyIncomeDescription(income.Descricao, income.Data))
                     return Task.FromResult("Jà existe uma receita com essa descrição! Operação Cancelada");
 
                 _incomeRepository.Update(income);
@@ -76,7 +76,7 @@ namespace Core.Services
             }
             catch (Exception ex)
             {
-                return Task.FromResult($"Erro na atualização da receita: { ex.Message}");
+                return Task.FromResult($"Erro na atualização da receita: {ex.Message}");
             }
 
         }
@@ -100,9 +100,9 @@ namespace Core.Services
         }
 
         #region Private Methods
-        private bool VerifyIncomeDescription(string descricao)
+        private bool VerifyIncomeDescription(string descricao, DateTime date)
         {
-            var verifyIncome = _incomeRepository.List(x => x.Descricao == descricao);
+            var verifyIncome = _incomeRepository.List(x => x.Descricao == descricao && x.Data.Month == date.Month && x.Data.Year == date.Year);
             if (verifyIncome.Any())
                 return true;
 

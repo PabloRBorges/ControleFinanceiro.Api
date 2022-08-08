@@ -20,7 +20,7 @@ namespace Core.Services
         {
             try
             {
-                if (VerifyExpenseDescription(expense.Descricao))
+                if (VerifyExpenseDescription(expense.Descricao, expense.Data))
                     return Task.FromResult("Receita já cadastrada");
 
                 _expenseRepository.Insert(expense);
@@ -65,7 +65,7 @@ namespace Core.Services
         {
             try
             {
-                if (VerifyExpenseDescription(expense.Descricao))
+                if (VerifyExpenseDescription(expense.Descricao, expense.Data))
                     return Task.FromResult("Jà existe uma receita com essa descrição! Operação Cancelada");
 
                 _expenseRepository.Update(expense);
@@ -98,9 +98,9 @@ namespace Core.Services
         }
 
         #region Private Methods
-        private bool VerifyExpenseDescription(string descricao)
+        private bool VerifyExpenseDescription(string descricao, DateTime date)
         {
-            var verifyExpense = _expenseRepository.List(x => x.Descricao == descricao);
+            var verifyExpense = _expenseRepository.List(x => x.Descricao == descricao && x.Data.Month == date.Month && x.Data.Year == date.Year);
             if (verifyExpense.Any())
                 return true;
 
