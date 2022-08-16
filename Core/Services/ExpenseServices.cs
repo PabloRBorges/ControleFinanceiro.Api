@@ -48,6 +48,34 @@ namespace Core.Services
             }
         }
 
+        public Task<IOrderedEnumerable<Expense>> GetList(string filter)
+        {
+            try
+            {
+                var result = _expenseRepository.List(x => x.Descricao.Contains(filter)).OrderByDescending(x => x.Data);
+                return Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+
+        public Task<IOrderedEnumerable<Expense>> GetList(DateTime dateTime)
+        {
+            try
+            {
+                var result = _expenseRepository.List(x => x.Data.Month == dateTime.Month && x.Data.Year == dateTime.Year).OrderByDescending(x => x.Data);
+                return Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
         public Task<Expense> GetById(Guid id)
         {
             try

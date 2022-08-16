@@ -10,6 +10,8 @@ namespace Core.Interfaces.Services
     {
         Task<string> Create(Expense income);
         Task<IOrderedEnumerable<Expense>> GetList();
+        Task<IOrderedEnumerable<Expense>> GetList(string filter);
+        Task<IOrderedEnumerable<Expense>> GetList(DateTime dateTime);
         Task<Expense> GetById(Guid id);
         Task<string> Update(Expense income);
         Task<string> Delete(Guid id);

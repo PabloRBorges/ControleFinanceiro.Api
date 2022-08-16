@@ -13,7 +13,6 @@ namespace Core.Interfaces.DataContext
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Income>();
             modelBuilder.Entity<Expense>();
-
         }
     }
 }

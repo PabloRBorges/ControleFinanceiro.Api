@@ -24,11 +24,12 @@ namespace ControleFinanceiro.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromHeader] string descricao)
         {
-            var result = _mapper.Map<IList<ExpenseResponse>>(await _expenseServices.GetList());
-
-            return Ok(result);
+            if (string.IsNullOrEmpty(descricao))
+                return Ok(_mapper.Map<IList<ExpenseResponse>>(await _expenseServices.GetList()));
+            else
+                return Ok(_mapper.Map<IList<ExpenseResponse>>(await _expenseServices.GetList(descricao)));
         }
 
         [HttpGet]
@@ -36,6 +37,21 @@ namespace ControleFinanceiro.Api.Controllers
         public async Task<IActionResult> Get(Guid id)
         {
             var result = _mapper.Map<ExpenseResponse>(await _expenseServices.GetById(id));
+
+            if (result == null)
+                return Ok("Id not found");
+
+            return Ok(result);
+        }
+
+
+        [HttpGet]
+        [Route("{ano}/{mes}")]
+        public async Task<IActionResult> Get(int ano, int mes)
+        {
+            var datetime = new DateTime(ano, mes, 1);
+
+            var result = Ok(_mapper.Map<IList<ExpenseResponse>>(await _expenseServices.GetList(datetime)));
 
             if (result == null)
                 return Ok("Id not found");

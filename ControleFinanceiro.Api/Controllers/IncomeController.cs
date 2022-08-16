@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+
 namespace ControleFinanceiro.Api.Controllers
 {
     [ApiController]
@@ -24,16 +25,17 @@ namespace ControleFinanceiro.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromHeader] string descricao)
         {
-            var result = _mapper.Map<IList<IncomeResponse>>(await _incomeServices.GetList());
-
-            return Ok(result);
+            if (string.IsNullOrEmpty(descricao))
+                return Ok(_mapper.Map<IList<IncomeResponse>>(await _incomeServices.GetList()));
+            else
+                return Ok(_mapper.Map<IList<IncomeResponse>>(await _incomeServices.GetList(descricao)));
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> GetById(Guid id)
         {
             var result = _mapper.Map<IncomeResponse>(await _incomeServices.GetById(id));
 
@@ -42,6 +44,22 @@ namespace ControleFinanceiro.Api.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("{ano}/{mes}")]
+        public async Task<IActionResult> Get(int ano, int mes)
+        {
+            var datetime = new DateTime(ano, mes, 1);
+
+            var result = Ok(_mapper.Map<IList<IncomeResponse>>(await _incomeServices.GetList(datetime)));
+
+            if (result == null)
+                return Ok("Id not found");
+
+            return Ok(result);
+        }
+
+
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] IncomeRequest incomeRequest)

@@ -31,6 +31,10 @@
       "commandName": "Docker",
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ALURA_CONNECTIONSTRING": "Server=localhost;Database=ControleFinanceiro;User Id=sa;Password=Q1w2e3r4@"
+      },
       "publishAllPorts": true,
       "useSSL": true
     }

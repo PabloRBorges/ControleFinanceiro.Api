@@ -33,6 +33,7 @@ namespace ControleFinanceiro.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ControleFinanceiro.Api", Version = "v1" });
+                //c.ResolveConflictingActions(x => x.First());
             });
 
             var connectionString = Environment.GetEnvironmentVariable("ALURA_CONNECTIONSTRING");
@@ -43,6 +44,7 @@ namespace ControleFinanceiro.Api
                 .AddScoped<IExpenseRepository, ExpenseRepository>()
                 .AddScoped<IIncomeServices, IncomeServices>()
                 .AddScoped<IExpenseServices, ExpenseServices>()
+                .AddScoped<IResumeServices, ResumeServices>()
                 .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
         }
 

@@ -10,6 +10,8 @@ namespace Core.Interfaces.Services
     {
         Task<string> Create(Income income);
         Task<IOrderedEnumerable<Income>> GetList();
+        Task<IOrderedEnumerable<Income>> GetList(string filter);
+        Task<IOrderedEnumerable<Income>> GetList(DateTime dateTime);
         Task<Income> GetById(Guid id);
         Task<string> Update(Income income);
         Task<string> Delete(Guid id);

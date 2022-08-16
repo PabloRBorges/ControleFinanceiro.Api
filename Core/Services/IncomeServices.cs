@@ -2,8 +2,6 @@
 using Core.Interfaces.Services;
 using Core.Models;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +10,19 @@ namespace Core.Services
     public class IncomeServices : IIncomeServices
     {
         private readonly IIncomeRepository _incomeRepository;
+
+        #region Private Methods
+        private bool VerifyIncomeDescription(string descricao, DateTime date)
+        {
+            var verifyIncome = _incomeRepository.List(x => x.Descricao == descricao && x.Data.Month == date.Month && x.Data.Year == date.Year);
+            if (verifyIncome.Any())
+                return true;
+
+            return false;
+        }
+
+
+        #endregion
 
         public IncomeServices(IIncomeRepository incomeRepository)
         {
@@ -42,6 +53,33 @@ namespace Core.Services
             try
             {
                 var result = _incomeRepository.List().OrderByDescending(x => x.Data);
+                return Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public Task<IOrderedEnumerable<Income>> GetList(string filter)
+        {
+            try
+            {
+                var result = _incomeRepository.List(x => x.Descricao.Contains(filter)).OrderByDescending(x => x.Data);
+                return Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+
+        public Task<IOrderedEnumerable<Income>> GetList(DateTime dateTime)
+        {
+            try
+            {
+                var result = _incomeRepository.List(x => x.Data.Month == dateTime.Month && x.Data.Year == dateTime.Year).OrderByDescending(x => x.Data);
                 return Task.FromResult(result);
             }
             catch (Exception ex)
@@ -99,15 +137,6 @@ namespace Core.Services
             }
         }
 
-        #region Private Methods
-        private bool VerifyIncomeDescription(string descricao, DateTime date)
-        {
-            var verifyIncome = _incomeRepository.List(x => x.Descricao == descricao && x.Data.Month == date.Month && x.Data.Year == date.Year);
-            if (verifyIncome.Any())
-                return true;
-
-            return false;
-        }
-        #endregion
+  
     }
 }
