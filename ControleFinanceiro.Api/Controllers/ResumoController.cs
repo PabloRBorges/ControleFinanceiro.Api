@@ -1,11 +1,12 @@
 ﻿using Core.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("resumo")]
     public class ResumoController : Controller

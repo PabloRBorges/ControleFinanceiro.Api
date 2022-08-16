@@ -75,7 +75,6 @@ namespace Core.Services
             }
         }
 
-
         public Task<Expense> GetById(Guid id)
         {
             try

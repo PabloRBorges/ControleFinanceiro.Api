@@ -3,6 +3,7 @@ using ControleFinanceiro.Api.Models.Request;
 using ControleFinanceiro.Api.Models.Response;
 using Core.Interfaces.Services;
 using Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace ControleFinanceiro.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("receitas")]
     public class IncomeController : ControllerBase
