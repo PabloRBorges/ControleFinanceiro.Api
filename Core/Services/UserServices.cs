@@ -17,7 +17,7 @@ namespace Core.Services
 
         public Task<User> Get(string username, string password)
         {
-            var result = _userRepository.List(x => x.Username == username);
+            var result = _userRepository.List(x => x.Username == username && x.Password == password);
 
             return Task.FromResult(result.FirstOrDefault());
         }

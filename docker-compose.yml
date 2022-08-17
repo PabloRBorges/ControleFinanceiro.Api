@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  controlefinanceiro.api:
+    image: ${DOCKER_REGISTRY-}controlefinanceiroapi
+    build:
+      context: .
+      dockerfile: ControleFinanceiro.Api/Dockerfile
+    environment:
+        ASPNETCORE_ENVIRONMENT: "Development"
+        ALURA_CONNECTIONSTRING: Server=sqlserver;Database=ControleFinanceiro;User Id=sa;Password=Q1w2e3r4@
+    depends_on:
+      - sqlserver
+  sqlserver:
+    image: ${DOCKER_REGISTRY-}sql_alura:latest
+    container_name: sql3
+    hostname: 'sqlserver'
+    ports:
+      - '11433:1433'    
+    expose:
+      - 1433

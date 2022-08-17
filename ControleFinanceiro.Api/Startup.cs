@@ -38,11 +38,6 @@ namespace ControleFinanceiro.Api
             var config = AutoMapperConfig.RegisterMappings();
 
             services.AddControllers();
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Controle Financeiro - Api", Version = "v1" });
-            //    //c.ResolveConflictingActions(x => x.First());
-            //});
 
             services.AddSwaggerGen(c =>
             {
@@ -74,9 +69,6 @@ namespace ControleFinanceiro.Api
                         new List<string>()
                       }
                     });
-                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                //c.IncludeXmlComments(xmlPath);
             });
 
 
